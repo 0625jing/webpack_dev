@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /.cache-loader
+package-lock.json
 
 # production
 /dist
