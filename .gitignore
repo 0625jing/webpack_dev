@@ -1,0 +1,13 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.cache-loader
+
+# production
+/dist
+
+# misc
+.DS_Store
+.idea
+npm-debug.log*
