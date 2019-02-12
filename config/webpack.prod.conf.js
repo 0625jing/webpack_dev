@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HappyPack = require('happypack');
 const os = require('os');
 const merge = require('webpack-merge');
@@ -40,6 +41,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       threadPool: happyThreadPool,
       verboseWhenProfiling: true, // 显示信息
     }),
+    new webpack.HashedModuleIdsPlugin(),
   ],
 });
 

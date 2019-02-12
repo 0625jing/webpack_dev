@@ -1,10 +1,16 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 const theme = require('../src/theme');
 
 module.exports = {
   entry: {
     app: './src/index.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../dist'),
+    chunkFilename: '[name].async.js',
   },
   module: {
     rules: [
@@ -72,8 +78,8 @@ module.exports = {
     ],
   },
   performance: {
-    maxEntrypointSize: 250000, // 入口文件大小，性能指示
-    maxAssetSize: 250000, // 生成的最大文件
+    maxEntrypointSize: 450000, // 入口文件大小，性能指示
+    maxAssetSize: 450000, // 生成的最大文件
     hints: false, // 依赖过大是否错误提示
     // assetFilter: function(assetFilename) {
     //   return assetFilename.endsWith('.js');
@@ -82,23 +88,23 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: 'async',
-      minSize: 20000,
-      maxSize: 20000,
-      minChunks: 2,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
+      minSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 1,
+      maxInitialRequests: 1,
       automaticNameDelimiter: '.',
       name: true,
       cacheGroups: {
+        priority: '0',
         vendors: {
+          name: 'vendor',
+          chunks: 'async',
           test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
           priority: -10,
-          chunks: 'all',
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
+          enforce: true,
+          maxAsyncRequests: 1, // 最大异步请求数， 默认1
+          maxInitialRequests: 1, // 最大初始化请求书，默认1
+          reuseExistingChunk: true, // 可设置是否重用该chunk（查看源码没有发现默认值）
         },
       },
     },
@@ -107,6 +113,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
+
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './public/index.html',

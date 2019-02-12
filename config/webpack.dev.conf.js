@@ -44,6 +44,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.dev.devtool,
   plugins: [
     new webpack.HotModuleReplacementPlugin(), // 调用webpack的热更新插件
+    new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
+    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './public/index.html',
