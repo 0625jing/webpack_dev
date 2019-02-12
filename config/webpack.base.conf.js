@@ -111,6 +111,7 @@ module.exports = {
       filename: 'index.html',
       template: './public/index.html',
       inject: true,
+      hash: true, // 防止缓存
     }),
   ],
 };

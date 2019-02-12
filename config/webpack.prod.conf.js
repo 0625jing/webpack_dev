@@ -2,6 +2,7 @@ const path = require('path');
 const HappyPack = require('happypack');
 const os = require('os');
 const merge = require('webpack-merge');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //  用于优化或者压缩CSS资源
 const baseWebpackConfig = require('./webpack.base.conf');
 const config = require('./index');
 
@@ -25,6 +26,12 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   devtool: config.build.devtool,
   plugins: [
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true,
+    }),
     new HappyPack({
       id: 'babel',
       // 如何处理 .js 文件，用法和 Loader 配置中一样
