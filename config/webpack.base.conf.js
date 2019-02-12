@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const config = require('./index');
 const theme = require('../src/theme');
 
 module.exports = {
@@ -8,9 +9,10 @@ module.exports = {
     app: './src/index.js',
   },
   output: {
-    filename: '[name].js',
+    filename: 'js/[name].js',
     path: path.resolve(__dirname, '../dist'),
-    chunkFilename: '[name].async.js',
+    publicPath: config.build.publicPath,
+    chunkFilename: 'js/[name].[chunkhash:8].js',
   },
   module: {
     rules: [
@@ -111,7 +113,8 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[name].[chunkhash:8].css',
     }),
 
     new HtmlWebpackPlugin({

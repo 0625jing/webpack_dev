@@ -2,8 +2,7 @@ import dva from 'dva';
 import browserHistory from 'history/createBrowserHistory';
 import createLoading from 'dva-loading';
 
-// import ReactDOM from 'react-dom';
-// import React from 'react';
+import './index.css';
 
 
 const app = dva({ history: browserHistory() });
